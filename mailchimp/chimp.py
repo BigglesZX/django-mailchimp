@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.contrib.sites.models import Site
+#from django.contrib.sites.models import Site
 from mailchimp.chimpy.chimpy import Connection as BaseConnection, ChimpyException
 from mailchimp.utils import wrap, build_dict, Cache, WarningLogger
 from mailchimp.exceptions import (MCCampaignDoesNotExist, MCListDoesNotExist,
@@ -281,6 +281,8 @@ class List(BaseChimpObject):
         return self.add_webhook(url, actions, sources)
     
     def install_webhook(self):
+        raise NotImplementedError('Webhook-adding functionality is disabled')
+        
         domain = Site.objects.get_current().domain
         if not (domain.startswith('http://') or domain.startswith('https://')):
             domain = 'http://%s' % domain
